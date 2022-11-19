@@ -1,12 +1,7 @@
-//  FARM DATA RELAY SYSTEM
-//
-//  GATEWAY 2.000 Functions
-//  This is the 'meat and potatoes' of FDRS, and should not be fooled with
-//  unless improving/adding features. Developed by Timm Bogner
-//  (timmbogner@gmail.com)
-
 #ifndef __FDRS_FUNCTIONS_H__
 #define __FDRS_FUNCTIONS_H__
+
+#include <structs.h>
 
 #ifdef ESP8266
 #include <ESP8266WiFi.h>
@@ -37,26 +32,6 @@
 #if defined(USE_SD_LOG) || defined(USE_FS_LOG)
 #include <time.h>
 #endif
-
-enum {
-    event_clear,
-    event_espnowg,
-    event_espnow1,
-    event_espnow2,
-    event_serial,
-    event_mqtt,
-    event_lorag,
-    event_lora1,
-    event_lora2
-};
-
-enum crcResult {
-    CRC_NULL,
-    CRC_OK,
-    CRC_BAD,
-} returnCRC = CRC_NULL;
-
-enum { cmd_clear, cmd_ping, cmd_add, cmd_ack };
 
 #ifdef FDRS_DEBUG
 #define DBG(a) (Serial.println(a))
@@ -171,30 +146,12 @@ enum { cmd_clear, cmd_ping, cmd_add, cmd_ack };
 
 #endif  // USE_LORA
 
-#define MAC_PREFIX          \
-    0xAA, 0xBB, 0xCC, 0xDD, \
-        0xEE  // Should only be changed if implementing multiple FDRS systems.
+// Should only be changed if implementing multiple FDRS systems.
+#define MAC_PREFIX 0xAA, 0xBB, 0xCC, 0xDD, 0xEE
 
 #ifdef DEBUG_CONFIG
 #include "fdrs_checkConfig.h"
 #endif
-typedef struct FDRSPeer {
-    uint8_t mac[6];
-    uint32_t last_seen = 0;
-
-} FDRSPeer;
-typedef struct __attribute__((packed)) DataReading {
-    float d;
-    uint16_t id;
-    uint8_t t;
-
-} DataReading;
-
-typedef struct __attribute__((packed)) SystemPacket {
-    uint8_t cmd;
-    uint32_t param;
-} SystemPacket;
-
 FDRSPeer peer_list[16];
 const uint8_t espnow_size = 250 / sizeof(DataReading);
 const uint8_t lora_size = 256 / sizeof(DataReading);
@@ -333,7 +290,7 @@ void getSerial() {
     }
     DynamicJsonDocument doc(24576);
     DeserializationError error = deserializeJson(doc, incomingString);
-    if (error) {  // Test if parsing succeeds.
+    if (error) {
         //    DBG("json parse err");
         //    DBG(incomingString);
         return;
@@ -845,7 +802,6 @@ void loopFDRS() {
         if (logBufferPos > 0) releaseLogBuffer();
     }
 #endif
-
     while (UART_IF.available() || Serial.available()) {
         getSerial();
     }
@@ -854,8 +810,8 @@ void loopFDRS() {
     if (!client.connected()) {
         reconnect(1, true);
     }
-    client
-        .loop();  // for recieving incoming messages and maintaining connection
+    // for recieving incoming messages and maintaining connection
+    client.loop();
 
 #endif
     if (newData != event_clear) {
