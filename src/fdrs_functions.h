@@ -508,11 +508,10 @@ void sendMQTT() {
 #ifdef USE_WIFI
     DBG("Sending MQTT.");
     DynamicJsonDocument doc(24576);
+
+    doc["id"] = theData[0].id;
     for (int i = 0; i < ln; i++) {
-        doc[i]["id"] = theData[i].id;
-        doc[i]["type"] = theData[i].t;
-        doc[i]["data"] = theData[i].d;
-        doc[i]["time"] = time(nullptr);
+        doc[String(theData[i].t)] = theData[i].d;
     }
     String outgoingString;
     serializeJson(doc, outgoingString);
