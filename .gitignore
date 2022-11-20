@@ -1,2 +1,5 @@
+# Editor
+.vscode/**/*
 
 src/fdrs_globals.h
+
