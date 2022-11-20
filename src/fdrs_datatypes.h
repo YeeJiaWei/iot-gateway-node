@@ -1,20 +1,16 @@
-// A list of all datatypes you can use within FDRS.
-// If you are missing any data type, please open an issue at:
-// https://github.com/timmbogner/Farm-Data-Relay-System/issues
- 
 #ifndef FDRS_DATA_TYPES
 #define FDRS_DATA_TYPES
 
 #define STATUS_T        0  // Status 
 #define TEMP_T          1  // Temperature 
-#define TEMP2_T         2  // Temperature #2
-#define HUMIDITY_T      3  // Relative Humidity 
+#define HUMIDITY_T      2  // Relative Humidity 
+#define HEATINDEX_T     3  // Heat Index
 #define PRESSURE_T      4  // Atmospheric Pressure 
 #define LIGHT_T         5  // Light (lux) 
 #define SOIL_T          6  // Soil Moisture 
 #define SOIL2_T         7  // Soil Moisture #2 
-#define SOILR_T         8 // Soil Resistance 
-#define SOILR2_T        9 // Soil Resistance #2 
+#define SOILR_T         8  // Soil Resistance 
+#define SOILR2_T        9  // Soil Resistance #2 
 #define OXYGEN_T        10 // Oxygen 
 #define CO2_T           11 // Carbon Dioxide
 #define WINDSPD_T       12 // Wind Speed
