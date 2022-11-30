@@ -1,9 +1,3 @@
-//  FARM DATA RELAY SYSTEM
-//
-//  "fdrs_node.h"
-//
-//  Developed by Timm Bogner (timmbogner@gmail.com) for Sola Gratia Farm in Urbana, Illinois, USA.
-//
 #include <fdrs_datatypes.h>
 #if defined(ESP8266)
 #include <ESP8266WiFi.h>
@@ -17,6 +11,8 @@
 #include <ArduinoUniqueID.h>
 #include <LoRa.h>
 #endif
+
+#include <structs.h>
 
 // enable to get detailed info from where single configuration macros have been taken
 #define LORA_ACK_TIMEOUT 400    // LoRa ACK timeout in ms. (Minimum = 200)
@@ -55,32 +51,6 @@
 #ifdef DEBUG_CONFIG
 //#include "fdrs_checkConfig.h"
 #endif
-
-typedef struct __attribute__((packed)) DataReading {
-  float d;
-  uint16_t id;
-  uint8_t t;
-
-} DataReading;
-
-
-enum crcResult {
-  CRC_NULL,
-  CRC_OK,
-  CRC_BAD,
-} returnCRC;
-
-enum {
-  cmd_clear,
-  cmd_ping,
-  cmd_add,
-  cmd_ack,
-};
-
-typedef struct __attribute__((packed)) SystemPacket {
-  uint8_t cmd;
-  uint32_t param;
-} SystemPacket;
 
 const uint16_t espnow_size = 250 / sizeof(DataReading);
 uint8_t broadcast_mac[] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
