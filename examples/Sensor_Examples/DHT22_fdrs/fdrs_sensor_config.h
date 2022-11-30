@@ -1,7 +1,3 @@
-//  FARM DATA RELAY SYSTEM
-//
-//  Sensor Configuration
-
 #include <fdrs_globals.h>
 
 #define READING_ID    1   //Unique ID for this sensor
