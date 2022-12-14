@@ -4,10 +4,10 @@
 #define GTWY_MAC      0x01 //Address of the nearest gateway
 
 #define USE_ESPNOW
-//#define USE_LORA
+// #define USE_LORA
 #define DEEP_SLEEP
-//#define POWER_CTRL    14
 #define FDRS_DEBUG
+// #define POWER_CTRL    14
 
 //SPI Configuration -- Needed only on chipsets with multiple SPI interfaces (ESP32)
 #define SPI_SCK 5
