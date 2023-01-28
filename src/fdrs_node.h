@@ -1,12 +1,14 @@
 #include <fdrs_datatypes.h>
+
 #if defined(ESP8266)
-#include <ESP8266WiFi.h>
-#include <espnow.h>
+  #include <ESP8266WiFi.h>
+  #include <espnow.h>
 #elif defined(ESP32)
-#include <esp_now.h>
-#include <WiFi.h>
-#include <esp_wifi.h>
+  #include <esp_now.h>
+  #include <WiFi.h>
+  #include <esp_wifi.h>
 #endif
+
 #ifdef USE_LORA
 #include <ArduinoUniqueID.h>
 #include <LoRa.h>
@@ -412,7 +414,7 @@ void loadFDRS(float d, uint8_t t) {
   DBG("Id: " + String(READING_ID) + " - Type: " + String(t) + " - Data loaded: " + String(d));
   if (data_count > espnow_size) sendFDRS();
   DataReading dr;
-  dr.id = READING_ID;
+  dr.id = *READING_ID;
   dr.t = t;
   dr.d = d;
   fdrsData[data_count] = dr;
